@@ -43,7 +43,7 @@ class CKEditor implements EditorInterface
         $identifier = id(new Identifier())->getString(32);
         $plugins = $this->pluginManager->getSelectedPlugins();
         $html = sprintf(
-            '<<div contenteditable="true" id="%s" name="%s">%s</div>',
+            '<div contenteditable="true" id="%s" name="%s">%s</div>',
             $identifier,
             $key,
             $content
@@ -52,9 +52,13 @@ class CKEditor implements EditorInterface
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
-            $('#{$identifier}').ckeditor({$options}).on('remove', function(){
-                $(this).destroy();
+            $('#{$identifier}').ckeditor({$options}).editor
+            .on('blur',function(){
+                return false;
             })
+            .on('remove', function(){
+                $(this).destroy();
+            });
         });
         </script>
 EOL;
@@ -63,7 +67,14 @@ EOL;
 
     public function outputPageInlineEditor($key, $content = null)
     {
-        return $this->getEditor($key, $content, array());
+        return $this->getEditor(
+            $key,
+            $content,
+            array(
+                'startupFocus' => true,
+                'disableAutoInline' => true
+            )
+        );
     }
 
     public function outputPageComposerEditor($key, $content)
