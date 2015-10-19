@@ -86,17 +86,29 @@ EOL;
 
     public function outputPageComposerEditor($key, $content)
     {
-        // TODO: Implement outputPageComposerEditor() method.
+        return $this->outputStandardEditor($key, $content);
     }
 
     public function outputBlockEditModeEditor($key, $content)
     {
-        // TODO: Implement outputBlockEditModeEditor() method.
+        return $this->outputStandardEditor($key, $content);
     }
 
     public function outputStandardEditor($key, $content = null)
     {
-        // TODO: Implement outputStandardEditor() method.
+        $identifier = id(new Identifier())->getString(32);
+        $html = sprintf(
+            '<textarea id="%s" style="display:none;" name="%s">%s</textarea>',
+            $identifier,
+            $key,
+            $content
+        );
+        $html .= $this->getEditorScript($identifier, array(
+                'startupFocus' => true,
+                'disableAutoInline' => true
+            )
+        );
+        return $html;
     }
 
     public function allowFileManager()
