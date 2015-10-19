@@ -53,6 +53,22 @@ class Controller extends Package
                 ['javascript', 'editor/ckeditor/jquery_adapter'],
             ]
         );
+
+
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/c5inline',
+            'assets/c5inline.js',
+            array(),
+            $this->pkgHandle
+        );
+
+        $assetList->registerGroup(
+            'editor/ckeditor/c5inline',
+            [
+                ['javascript', 'editor/ckeditor/c5inline'],
+            ]
+        );
     }
 
     protected function overrideEditor()

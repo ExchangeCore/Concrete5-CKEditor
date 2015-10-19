@@ -43,20 +43,22 @@ class CKEditor implements EditorInterface
         $identifier = id(new Identifier())->getString(32);
         $plugins = $this->pluginManager->getSelectedPlugins();
         $html = sprintf(
-            '<div contenteditable="true" id="%s" name="%s">%s</div>',
+            '<textarea id="%s_content" style="display:none;" name="%s">a</textarea>
+            <div contenteditable="true" id="%s">%s</div>',
             $identifier,
             $key,
+            $identifier,
             $content
         );
         $html .= <<<EOL
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
-            $('#{$identifier}').ckeditor({$options}).editor
-            .on('blur',function(){
+            var ckeditor = $('#{$identifier}').ckeditor({$options}).editor;
+            ckeditor.on('blur',function(){
                 return false;
-            })
-            .on('remove', function(){
+            });
+            ckeditor.on('remove', function(){
                 $(this).destroy();
             });
         });
@@ -72,7 +74,8 @@ EOL;
             $content,
             array(
                 'startupFocus' => true,
-                'disableAutoInline' => true
+                'disableAutoInline' => true,
+                'extraPlugins' => 'c5inline'
             )
         );
     }
@@ -145,6 +148,7 @@ EOL;
     {
         $this->assets->requireAsset('core/file-manager');
         $this->assets->requireAsset('editor/ckeditor');
+        $this->assets->requireAsset('editor/ckeditor/c5inline');
         $plugins = $this->pluginManager->getSelectedPluginObjects();
         foreach ($plugins as $plugin) {
             $group = $plugin->getRequiredAssets();
