@@ -1,4 +1,4 @@
-CKEDITOR.plugins.add('c5inline', {
+CKEDITOR.plugins.add('concrete5inline', {
     icons: 'cancel',
 
     init: function (editor) {

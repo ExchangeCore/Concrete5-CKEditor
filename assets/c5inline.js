@@ -1,1 +1,0 @@
-CKEDITOR.plugins.addExternal( 'c5inline', CCM_REL + '/packages/community_ckeditor/assets/c5inline/' );

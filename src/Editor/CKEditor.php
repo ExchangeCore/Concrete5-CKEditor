@@ -30,27 +30,24 @@ class CKEditor implements EditorInterface
         $this->setAllowFileManager($fp->canAccessFileManager());
         $this->setAllowSitemap($tp->canAccessSitemap());
         $this->pluginManager = new PluginManager();
-
-        //$this->pluginManager->selectMultiple(\Config::get('concrete.editor.plugins.selected'));
+        $this->pluginManager->selectMultiple(
+            \Package::getByHandle('community_ckeditor')->getConfig()->get('plugins', array())
+        );
 
     }
 
-    protected function getEditor($key, $content = null, $options = array())
+    protected function getEditorScript($identifier, $options = array())
     {
         $this->requireEditorAssets();
-
-        $options = json_encode($options);
-        $identifier = id(new Identifier())->getString(32);
         $plugins = $this->pluginManager->getSelectedPlugins();
-        $html = sprintf(
-            '<textarea id="%s_content" style="display:none;" name="%s">a</textarea>
-            <div contenteditable="true" id="%s">%s</div>',
-            $identifier,
-            $key,
-            $identifier,
-            $content
+        $options = array_merge(
+            $options,
+            array(
+                'plugins' => implode(',', $plugins),
+            )
         );
-        $html .= <<<EOL
+        $options = json_encode($options);
+        $html = <<<EOL
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
@@ -69,15 +66,22 @@ EOL;
 
     public function outputPageInlineEditor($key, $content = null)
     {
-        return $this->getEditor(
+        $identifier = id(new Identifier())->getString(32);
+        $this->getPluginManager()->select('concrete5inline');
+        $html = sprintf(
+            '<textarea id="%s_content" style="display:none;" name="%s"></textarea>
+            <div contenteditable="true" id="%s">%s</div>',
+            $identifier,
             $key,
-            $content,
-            array(
+            $identifier,
+            $content
+        );
+        $html .= $this->getEditorScript($identifier, array(
                 'startupFocus' => true,
-                'disableAutoInline' => true,
-                'extraPlugins' => 'c5inline'
+                'disableAutoInline' => true
             )
         );
+        return $html;
     }
 
     public function outputPageComposerEditor($key, $content)
@@ -127,8 +131,7 @@ EOL;
 
     public function saveOptionsForm(Request $request)
     {
-        //todo
-        /*\Config::save('ckeditor.enable_filemanager', $request->request->get('enable_filemanager'));
+        \Config::save('concrete.editor.concrete.enable_filemanager', $request->request->get('enable_filemanager'));
         \Config::save('concrete.editor.concrete.enable_sitemap', $request->request->get('enable_sitemap'));
 
         $plugins = array();
@@ -141,14 +144,13 @@ EOL;
             }
         }
 
-        \Config::save('concrete.editor.plugins.selected', $plugins);*/
+        \Package::getByHandle('community_ckeditor')->getConfig()->save('plugins', $plugins);
     }
 
     public function requireEditorAssets()
     {
-        $this->assets->requireAsset('core/file-manager');
+        //$this->assets->requireAsset('core/file-manager'); todo: still need to make this work
         $this->assets->requireAsset('editor/ckeditor');
-        $this->assets->requireAsset('editor/ckeditor/c5inline');
         $plugins = $this->pluginManager->getSelectedPluginObjects();
         foreach ($plugins as $plugin) {
             $group = $plugin->getRequiredAssets();
