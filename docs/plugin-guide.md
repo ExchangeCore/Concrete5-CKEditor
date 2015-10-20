@@ -31,10 +31,12 @@ to associate a plugin key to a specific path. Notice this is not something you n
 plugins, this is something we're adding so that we can get a CKEditor plugin, to work with the concrete5 asset manager.
 
 ```js
-CKEDITOR.plugins.addExternal(
-    'concrete5inline', 
-    CCM_REL + '/packages/base_cke_plugin/assets/base_cke_plugin/'
-);
+if (typeof CKEDITOR !== 'undefined') {
+    CKEDITOR.plugins.addExternal(
+        'concrete5inline', 
+        CCM_REL + '/packages/base_cke_plugin/assets/base_cke_plugin/'
+    );
+}
 ```
 
 ### /packages/base_cke_plugin/controller.php
