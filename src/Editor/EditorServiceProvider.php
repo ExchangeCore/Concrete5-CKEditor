@@ -8,9 +8,12 @@ class EditorServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bindShared('editor', function() {
-            return new CKEditor();
-        });
+        $this->app->bindShared(
+            'editor',
+            function () {
+                return new CKEditor();
+            }
+        );
     }
 
 

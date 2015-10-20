@@ -7,7 +7,7 @@ CKEDITOR.plugins.add('concrete5inline', {
             return;
 
         editor.addCommand('c5save', {
-            'exec': function(editor) {
+            'exec': function (editor) {
                 $('#' + editor.element.$.id + '_content').val(editor.getData());
                 ConcreteEvent.fire('EditModeBlockSaveInline');
                 editor.destroy();
@@ -15,7 +15,7 @@ CKEDITOR.plugins.add('concrete5inline', {
         });
 
         editor.addCommand('c5cancel', {
-            'exec': function(editor) {
+            'exec': function (editor) {
                 ConcreteEvent.fire('EditModeExitInline');
                 editor.destroy();
             }

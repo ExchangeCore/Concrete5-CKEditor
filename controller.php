@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\CommunityCKEditor;
+namespace Concrete\Package\CommunityCkeditor;
 
 use Concrete\Core\Editor\Plugin;
 use Concrete\Core\Foundation\Service\ProviderList;
@@ -92,66 +92,66 @@ class Controller extends Package
         Core::make('editor')->getPluginManager()->register($plugin);
     }
 
-    protected  function registerInternalPlugins()
+    protected function registerInternalPlugins()
     {
         $pluginList = array(
             array('key' => 'about', 'name' => t('About')),
+            array('key' => 'a11yhelp', 'name' => t('Accessibility Help')),
             array('key' => 'basicstyles', 'name' => t('Basic Styles')),
+            array('key' => 'bidi', 'name' => t('BiDi (Text Direction)')),
+            array('key' => 'blockquote', 'name' => t('Blockquote')),
             array('key' => 'clipboard', 'name' => t('Clipboard')),
-            array('key' => 'toolbar', 'name' => t('Editor Toolbar')),
+            array('key' => 'colorbutton', 'name' => t('Color Button')),
+            array('key' => 'colordialog', 'name' => t('Color Dialog')),
+            array('key' => 'contextmenu', 'name' => t('Context Menu')),
+            array('key' => 'dialogadvtab', 'name' => t('Advanced Tab for Dialogs')),
+            array('key' => 'div', 'name' => t('Div Container Manager')),
+            array('key' => 'elementspath', 'name' => t('Elements Path')),
             array('key' => 'enterkey', 'name' => t('Enter Key')),
             array('key' => 'entities', 'name' => t('Escape HTML Entities')),
-            array('key' => 'floatingspace', 'name' => t('Floating Space')),
-            array('key' => 'wysiwygarea', 'name' => t('IFrame Editing Area')),
-            array('key' => 'indentlist', 'name' => t('Indent List')),
-            array('key' => 'link', 'name' => t('Link')),
-            array('key' => 'list', 'name' => t('List')),
-            array('key' => 'undo', 'name' => t('Undo')),
-            array('key' => 'a11yhelp', 'name' => t('Accessibility Help')),
-            array('key' => 'blockquote', 'name' => t('Blockquote')),
-            array('key' => 'contextmenu', 'name' => t('Context Menu')),
-            array('key' => 'resize', 'name' => t('Editor Resize')),
-            array('key' => 'elementspath', 'name' => t('Elements Path')),
             //array('key' => 'filebrowser', 'name' => t('File Browser')), todo: implement concrete5 file manager
+            array('key' => 'find', 'name' => t('Find / Replace')),
+            array('key' => 'flash', 'name' => t('Flash Dialog')),
+            array('key' => 'floatingspace', 'name' => t('Floating Space')),
+            array('key' => 'font', 'name' => t('Font Size and Famiy')),
             array('key' => 'format', 'name' => t('Format')),
+            array('key' => 'forms', 'name' => t('Form Elements')),
             array('key' => 'horizontalrule', 'name' => t('Horizontal Rule')),
             array('key' => 'htmlwriter', 'name' => t('HTML Output Writer')),
+            array('key' => 'iframe', 'name' => t('IFrame Dialog')),
             array('key' => 'image', 'name' => t('Image')), //todo: integrate/replace with concrete5 file manager
+            array('key' => 'indentblock', 'name' => t('Indent Block')),
+            array('key' => 'indentlist', 'name' => t('Indent List')),
+            array('key' => 'justify', 'name' => t('Justify')),
+            array('key' => 'language', 'name' => t('Language')),
+            array('key' => 'link', 'name' => t('Link')), //todo: integrate/replace with sitemap support
+            array('key' => 'list', 'name' => t('List')),
+            array('key' => 'liststyle', 'name' => t('List Style')),
             array('key' => 'magicline', 'name' => t('Magic Line')),
             array('key' => 'maximize', 'name' => t('Maximize')),
+            array('key' => 'newpage', 'name' => t('New Page')),
+            array('key' => 'pagebreak', 'name' => t('Page Break')),
             array('key' => 'pastetext', 'name' => t('Paste As Plain Text')),
             array('key' => 'pastefromword', 'name' => t('Paste from Word')),
+            array('key' => 'preview', 'name' => t('Preview')),
             array('key' => 'removeformat', 'name' => t('Remove Format')),
+            array('key' => 'resize', 'name' => t('Editor Resize')),
+            array('key' => 'scayt', 'name' => t('SpellCheckAsYouType (SCAYT)')),
+            array('key' => 'selectall', 'name' => t('Select All')),
+            array('key' => 'showblocks', 'name' => t('Show Blocks')),
             array('key' => 'showborders', 'name' => t('Show Table Borders')),
+            array('key' => 'smiley', 'name' => t('Insert Smiley')),
             array('key' => 'sourcearea', 'name' => t('Source Editing Area')),
             array('key' => 'specialchar', 'name' => t('Special Characters')),
-            array('key' => 'scayt', 'name' => t('SpellCheckAsYouType (SCAYT)')),
             array('key' => 'stylescombo', 'name' => t('Styles Combo')),
             array('key' => 'tab', 'name' => t('Tab Key Handling')),
             array('key' => 'table', 'name' => t('Table')),
             array('key' => 'tabletools', 'name' => t('Table Tools')),
-            array('key' => 'wsc', 'name' => t('WebSpellChecker')),
-            array('key' => 'dialogadvtab', 'name' => t('Advanced Tab for Dialogs')),
-            array('key' => 'bidi', 'name' => t('BiDi (Text Direction)')),
-            array('key' => 'colorbutton', 'name' => t('Color Button')),
-            array('key' => 'colordialog', 'name' => t('Color Dialog')),
             array('key' => 'templates', 'name' => t('Content Templates')),
-            array('key' => 'div', 'name' => t('Div Container Manager')),
-            array('key' => 'find', 'name' => t('Find / Replace')),
-            array('key' => 'flash', 'name' => t('Flash Dialog')),
-            array('key' => 'font', 'name' => t('Font Size and Famiy')),
-            array('key' => 'forms', 'name' => t('Form Elements')),
-            array('key' => 'iframe', 'name' => t('IFrame Dialog')),
-            array('key' => 'indentblock', 'name' => t('Indent Block')),
-            array('key' => 'smiley', 'name' => t('Insert Smiley')),
-            array('key' => 'justify', 'name' => t('Justify')),
-            array('key' => 'language', 'name' => t('Language')),
-            array('key' => 'liststyle', 'name' => t('List Style')),
-            array('key' => 'newpage', 'name' => t('New Page')),
-            array('key' => 'pagebreak', 'name' => t('Page Break')),
-            array('key' => 'preview', 'name' => t('Preview')),
-            array('key' => 'selectall', 'name' => t('Select All')),
-            array('key' => 'showblocks', 'name' => t('Show Blocks')),
+            array('key' => 'toolbar', 'name' => t('Editor Toolbar')),
+            array('key' => 'undo', 'name' => t('Undo')),
+            array('key' => 'wsc', 'name' => t('WebSpellChecker')),
+            array('key' => 'wysiwygarea', 'name' => t('IFrame Editing Area')),
         );
 
         foreach ($pluginList as $plugin) {
@@ -164,23 +164,45 @@ class Controller extends Package
 
     protected function setupDefaultPlugins()
     {
-        $this->getConfig()->save('plugins',
+        $this->getConfig()->save(
+            'plugins',
             array(
+                'a11yhelp',
                 'basicstyles',
+                'blockquote',
                 'clipboard',
-                'tab',
-                'htmlwriter',
-                'toolbar',
+                'colorbutton',
+                'colordialog',
+                'contextmenu',
+                'dialogadvtab',
+                'elementspath',
                 'enterkey',
                 'entities',
                 'floatingspace',
+                'font',
                 'format',
-                'sourcearea',
-                'wysiwygarea',
+                'htmlwriter',
+                'image',
+                'indentblock',
                 'indentlist',
+                'justify',
                 'link',
                 'list',
-                'undo'
+                'liststyle',
+                'magicline',
+                'removeformat',
+                'resize',
+                'showblocks',
+                'showborders',
+                'sourcearea',
+                'specialchar',
+                'stylescombo',
+                'tab',
+                'table',
+                'tabletools',
+                'toolbar',
+                'undo',
+                'wysiwygarea'
             )
         );
     }

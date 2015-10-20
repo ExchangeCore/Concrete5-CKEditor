@@ -76,7 +76,9 @@ EOL;
             $identifier,
             $content
         );
-        $html .= $this->getEditorScript($identifier, array(
+        $html .= $this->getEditorScript(
+            $identifier,
+            array(
                 'startupFocus' => true,
                 'disableAutoInline' => true
             )
@@ -103,7 +105,9 @@ EOL;
             $key,
             $content
         );
-        $html .= $this->getEditorScript($identifier, array(
+        $html .= $this->getEditorScript(
+            $identifier,
+            array(
                 'startupFocus' => true,
                 'disableAutoInline' => true
             )
@@ -149,7 +153,7 @@ EOL;
         $plugins = array();
         $post = $request->request->get('plugin');
         if (is_array($post)) {
-            foreach($post as $plugin) {
+            foreach ($post as $plugin) {
                 if ($this->pluginManager->isAvailable($plugin)) {
                     $plugins[] = $plugin;
                 }
