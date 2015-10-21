@@ -169,8 +169,6 @@ class Controller extends Package
             array(
                 'a11yhelp',
                 'basicstyles',
-                'blockquote',
-                'clipboard',
                 'colorbutton',
                 'colordialog',
                 'contextmenu',
@@ -195,7 +193,6 @@ class Controller extends Package
                 'showblocks',
                 'showborders',
                 'sourcearea',
-                'specialchar',
                 'stylescombo',
                 'tab',
                 'table',
