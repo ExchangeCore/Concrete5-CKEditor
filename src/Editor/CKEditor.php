@@ -46,9 +46,10 @@ class CKEditor implements EditorInterface
             $options,
             array(
                 'plugins' => implode(',', $plugins),
+                'language' => $this->getLanguageOption(),
+                'customConfig' => ''
             )
         );
-        $options['language'] = $this->getLanguageOption();
         $options = json_encode($options);
         $html = <<<EOL
         <script type="text/javascript">
