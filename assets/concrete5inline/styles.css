@@ -1,0 +1,24 @@
+.cke_button__save {
+    background: #337ab7 !important;
+}
+
+.cke_button__save:hover {
+    background: #286090 !important;
+}
+
+.cke_button__save_label {
+    display: inline !important;
+    color: #fff !important;
+}
+
+.cke_button__save_icon {
+    display: none !important;
+}
+
+.cke_button__cancel_label {
+    display: inline !important;
+}
+
+.cke_button__cancel_icon {
+    display: none !important;
+}

@@ -77,11 +77,19 @@ class Controller extends Package
             array(),
             $this->pkgHandle
         );
+        $assetList->register(
+            'css',
+            'editor/ckeditor/concrete5inline',
+            'assets/concrete5inline/styles.css',
+            array(),
+            $this->pkgHandle
+        );
 
         $assetList->registerGroup(
             'editor/ckeditor/concrete5inline',
             array(
-                array('javascript', 'editor/ckeditor/concrete5inline')
+                array('javascript', 'editor/ckeditor/concrete5inline'),
+                array('css', 'editor/ckeditor/concrete5inline')
             )
         );
 
