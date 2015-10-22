@@ -5,9 +5,11 @@ use Concrete\Core\Editor\EditorInterface;
 use Concrete\Core\Editor\PluginManager;
 use Concrete\Core\Http\Request;
 use Concrete\Core\Http\ResponseAssetGroup;
+use Concrete\Core\Localization\Localization;
 use Concrete\Core\Utility\Service\Identifier;
 use Core;
 use Permissions;
+use Punic\Language;
 
 class CKEditor implements EditorInterface
 {
@@ -46,6 +48,7 @@ class CKEditor implements EditorInterface
                 'plugins' => implode(',', $plugins),
             )
         );
+        $options['language'] = $this->getLanguageOption();
         $options = json_encode($options);
         $html = <<<EOL
         <script type="text/javascript">
@@ -172,5 +175,21 @@ EOL;
             $group = $plugin->getRequiredAssets();
             $this->assets->requireAsset($group);
         }
+    }
+
+    /**
+     * @return string Returns the CKEditor language configuration
+     */
+    protected function getLanguageOption()
+    {
+        $langPath = DIR_BASE . '/' . DIRNAME_PACKAGES . '/community_ckeditor/vendor/ckeditor/lang/';
+        $useLanguage = 'en';
+        $language = strtolower(str_replace('_', '-', Localization::activeLocale()));
+        if (file_exists($langPath . $language . '.js')) {
+            $useLanguage = $language;
+        } elseif (file_exists($langPath . strtolower(Localization::activeLanguage()) . '.js')) {
+            $useLanguage =  strtolower(Localization::activeLanguage());
+        }
+        return $useLanguage;
     }
 }
