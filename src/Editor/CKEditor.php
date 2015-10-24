@@ -28,7 +28,7 @@ class CKEditor implements EditorInterface
         $tp = new Permissions();
 
         $this->assets = ResponseAssetGroup::get();
-        $this->token = Core::make("token")->generate('editor');
+        $this->token = Core::make('token')->generate('editor');
         $this->setAllowFileManager($fp->canAccessFileManager());
         $this->setAllowSitemap($tp->canAccessSitemap());
         $this->pluginManager = new PluginManager();

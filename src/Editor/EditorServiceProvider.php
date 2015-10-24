@@ -15,6 +15,4 @@ class EditorServiceProvider extends ServiceProvider
             }
         );
     }
-
-
 }
