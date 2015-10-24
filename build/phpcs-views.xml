@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<ruleset name="ExchangeCore_Concrete5">
+    <description>ExchangeCore coding standard for Concrete5 view development</description>
+
+    <rule ref="phpcs.xml">
+        <exclude name="PSR2.Methods.FunctionCallSignature"/>
+    </rule>
+</ruleset>

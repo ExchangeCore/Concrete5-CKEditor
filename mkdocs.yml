@@ -1,0 +1,8 @@
+site_name: concrete5 CKEditor
+copyright: Copyright ExchangeCore LLC
+theme: readthedocs
+site_dir: build/docs
+pages:
+- 'index.md'
+- 'plugin-guide.md'
+- 'changelog.md'

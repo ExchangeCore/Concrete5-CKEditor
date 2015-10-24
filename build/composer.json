@@ -1,0 +1,7 @@
+{
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*",
+    "wimg/php-compatibility": "dev-master",
+    "simplyadmire/composer-plugins" : "2.0.1"
+  }
+}

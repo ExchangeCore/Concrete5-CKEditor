@@ -1,0 +1,27 @@
+lint:
+  script:
+  - cd build
+  - composer install
+  - npm install
+  - grunt phpcs:compatibility --force
+  - grunt phpcs:formatting --force
+  tags:
+  - node
+  - grunt
+  - php
+  - composer
+  except:
+  - tags
+
+docs:
+  script:
+  - mkdocs build --clean
+  - lftp nox.exchangecore.com -e "rm -r /$CI_BUILD_REF_NAME; mirror -R build/docs /$CI_BUILD_REF_NAME; exit" -u $DOCS_FTP_USERNAME,$DOCS_FTP_PASSWORD
+  - curl http://docs.exchangecore.com/tools/update-symlinks.php?docs=community_ckeditor
+  type: deploy
+  tags:
+  - mkdocs
+  - lftp
+  only:
+  - "develop"
+  - tags
