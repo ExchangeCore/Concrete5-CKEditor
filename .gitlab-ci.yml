@@ -3,8 +3,8 @@ lint:
   - cd build
   - composer install
   - npm install
-  - grunt phpcs:compatibility --force
-  - grunt phpcs:formatting --force
+  - grunt phpcs:compatibility
+  - grunt phpcs:formatting
   tags:
   - node
   - grunt
