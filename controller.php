@@ -5,6 +5,7 @@ use Concrete\Core\Editor\Plugin;
 use Concrete\Core\Foundation\Service\ProviderList;
 use Concrete\Core\Package\Package;
 use Core;
+use Route;
 
 class Controller extends Package
 {
@@ -93,11 +94,42 @@ class Controller extends Package
             )
         );
 
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/concrete5filemanager',
+            'assets/concrete5filemanager/register.js',
+            array(),
+            $this->pkgHandle
+        );
+        $assetList->register(
+            'css',
+            'editor/ckeditor/concrete5filemanager',
+            'assets/concrete5filemanager/styles.css',
+            array(),
+            $this->pkgHandle
+        );
+        $assetList->registerGroup(
+            'editor/ckeditor/concrete5filemanager',
+            array(
+                array('javascript', 'editor/ckeditor/concrete5filemanager'),
+                array('css', 'editor/ckeditor/concrete5filemanager'),
+            )
+        );
+
+        $pluginManager = Core::make('editor')->getPluginManager();
+
         $plugin = new Plugin();
         $plugin->setKey('concrete5inline');
         $plugin->setName(t('Concrete5 Inline'));
         $plugin->requireAsset('editor/ckeditor/concrete5inline');
-        Core::make('editor')->getPluginManager()->register($plugin);
+        $pluginManager->register($plugin);
+
+        $plugin = new Plugin();
+        $plugin->setKey('concrete5filemanager');
+        $plugin->setName(t('Concrete5 File Browser'));
+        $plugin->requireAsset('editor/ckeditor/concrete5filemanager');
+        $pluginManager->register($plugin);
     }
 
     protected function registerInternalPlugins()
@@ -120,11 +152,11 @@ class Controller extends Package
             array('key' => 'embed', 'name' => t('Media Embed')),
             array('key' => 'enterkey', 'name' => t('Enter Key')),
             array('key' => 'entities', 'name' => t('Escape HTML Entities')),
-            //array('key' => 'filebrowser', 'name' => t('File Browser')), todo: implement concrete5 file manager
             array('key' => 'find', 'name' => t('Find / Replace')),
             array('key' => 'flash', 'name' => t('Flash Dialog')),
             array('key' => 'floatingspace', 'name' => t('Floating Space')),
             array('key' => 'font', 'name' => t('Font Size and Famiy')),
+            array('key' => 'filebrowser', 'name' => t('File Browser')),
             array('key' => 'format', 'name' => t('Format')),
             array('key' => 'forms', 'name' => t('Form Elements')),
             array('key' => 'horizontalrule', 'name' => t('Horizontal Rule')),
@@ -192,6 +224,7 @@ class Controller extends Package
                 'elementspath',
                 'enterkey',
                 'entities',
+                'filebrowser',
                 'floatingspace',
                 'font',
                 'format',

@@ -46,6 +46,7 @@ class CKEditor implements EditorInterface
             $options,
             array(
                 'plugins' => implode(',', $plugins),
+                'filebrowserBrowseUrl' => 'a',
                 'language' => $this->getLanguageOption(),
                 'customConfig' => '',
                 'allowedContent' => true
@@ -170,7 +171,7 @@ EOL;
 
     public function requireEditorAssets()
     {
-        //$this->assets->requireAsset('core/file-manager'); todo: still need to make this work
+        $this->assets->requireAsset('core/file-manager');
         $this->assets->requireAsset('editor/ckeditor');
         $plugins = $this->pluginManager->getSelectedPluginObjects();
         foreach ($plugins as $plugin) {
