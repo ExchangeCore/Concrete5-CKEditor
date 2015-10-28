@@ -13,13 +13,17 @@
                         browseButton.hidden = false;
                         browseButton.onClick = function() {
                             editor._.filebrowserSe = this;
+                            var dialog = this.getDialog();
                             ConcreteFileManager.launchDialog(function(data) {
                                 jQuery.fn.dialog.showLoader();
                                 ConcreteFileManager.getFileDetails(data.fID, function(r) {
                                     jQuery.fn.dialog.hideLoader();
                                     var file = r.files[0];
-                                    CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlInline, function() {
-                                        var dialog = this.getDialog();
+                                    var fileLink = file.urlDownload;
+                                    if ( dialog.getName() == 'image' || dialog.getName() == 'image2') {
+                                        fileLink = file.urlInline;
+                                    }
+                                    CKEDITOR.tools.callFunction(editor._.filebrowserFn, fileLink, function() {
                                         if ( dialog.getName() == 'image' || dialog.getName() == 'image2') {
                                             dialog.dontResetSize = true;
                                             dialog.getContentElement( 'info', 'txtAlt').setValue(file.title);
