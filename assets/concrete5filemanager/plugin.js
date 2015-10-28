@@ -19,19 +19,17 @@
                                 ConcreteFileManager.getFileDetails(data.fID, function(r) {
                                     jQuery.fn.dialog.hideLoader();
                                     var file = r.files[0];
-                                    var fileLink = file.urlDownload;
-                                    if ( dialog.getName() == 'image' || dialog.getName() == 'image2') {
-                                        fileLink = file.urlInline;
-                                    }
-                                    CKEDITOR.tools.callFunction(editor._.filebrowserFn, fileLink, function() {
-                                        if ( dialog.getName() == 'image' || dialog.getName() == 'image2') {
+                                    console.log(dialog._.currentTabId);
+                                    if ((dialog.getName() == 'image' || dialog.getName() == 'image2') && dialog._.currentTabId == 'info') {
+                                        CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlInline, function() {
                                             dialog.dontResetSize = true;
-                                            dialog.getContentElement( 'info', 'txtAlt').setValue(file.title);
                                             dialog.getContentElement( 'info', 'txtWidth').setValue('');
                                             dialog.getContentElement( 'info', 'txtHeight').setValue('');
-                                            dialog.getContentElement( 'Link', 'txtUrl').setValue(file.urlDownload);
-                                        }
-                                    });
+                                            dialog.getContentElement( 'info', 'txtAlt').setValue(file.title);
+                                        });
+                                    } else {
+                                        CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlDownload);
+                                    }
                                 });
                             });
                         }
