@@ -18,7 +18,16 @@
                                 ConcreteFileManager.getFileDetails(data.fID, function(r) {
                                     jQuery.fn.dialog.hideLoader();
                                     var file = r.files[0];
-                                    CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlDownload);
+                                    CKEDITOR.tools.callFunction(editor._.filebrowserFn, file.urlInline, function() {
+                                        var dialog = this.getDialog();
+                                        if ( dialog.getName() == 'image' || dialog.getName() == 'image2') {
+                                            dialog.dontResetSize = true;
+                                            dialog.getContentElement( 'info', 'txtAlt').setValue(file.title);
+                                            dialog.getContentElement( 'info', 'txtWidth').setValue('');
+                                            dialog.getContentElement( 'info', 'txtHeight').setValue('');
+                                            dialog.getContentElement( 'Link', 'txtUrl').setValue(file.urlDownload);
+                                        }
+                                    });
                                 });
                             });
                         }
