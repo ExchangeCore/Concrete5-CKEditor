@@ -5,6 +5,7 @@ lint:
   - npm install
   - grunt phpcs:compatibility
   - grunt phpcs:formatting
+  - grunt jshint:assets
   tags:
   - node
   - grunt
