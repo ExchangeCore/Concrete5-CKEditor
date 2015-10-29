@@ -40,8 +40,19 @@ class CKEditor implements EditorInterface
 
     protected function getEditorScript($identifier, $options = array())
     {
+        $pluginManager = $this->pluginManager;
+
+        if ($this->allowFileManager()) {
+            $pluginManager->select('concrete5filemanager');
+            $pluginManager->select('concrete5uploadimage');
+        } else {
+            $pluginManager->deselect('concrete5filemanager');
+            $pluginManager->deselect('concrete5uploadimage');
+        }
+
         $this->requireEditorAssets();
-        $plugins = $this->pluginManager->getSelectedPlugins();
+        $plugins = $pluginManager->getSelectedPlugins();
+
         $options = array_merge(
             $options,
             array(

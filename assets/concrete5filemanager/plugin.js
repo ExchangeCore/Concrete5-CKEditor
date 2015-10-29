@@ -1,5 +1,6 @@
 (function() {
     CKEDITOR.plugins.add('concrete5filemanager', {
+        requires: 'filebrowser',
         init: function () {
             CKEDITOR.on('dialogDefinition', function(event) {
                 var editor = event.editor,
