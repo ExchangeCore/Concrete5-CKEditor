@@ -5,7 +5,6 @@ use Concrete\Core\Editor\Plugin;
 use Concrete\Core\Foundation\Service\ProviderList;
 use Concrete\Core\Package\Package;
 use Core;
-use Route;
 
 class Controller extends Package
 {
@@ -13,7 +12,6 @@ class Controller extends Package
     protected $pkgHandle = 'community_ckeditor';
     protected $appVersionRequired = '5.7.5';
     protected $pkgVersion = '0.1.1';
-
 
     public function getPackageName()
     {
