@@ -24,7 +24,7 @@
                 if (xhr.status == 200) {
                     var files = jQuery.parseJSON(xhr.responseText);
                     if (files.length > 0) {
-                        data.url = files[0].urlInline
+                        data.url = files[0].urlInline;
                     }
                 } else {
                     data.message = xhr.responseText;
