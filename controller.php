@@ -117,6 +117,21 @@ class Controller extends Package
             )
         );
 
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/concrete5uploadimage',
+            'assets/concrete5uploadimage/register.js',
+            array(),
+            $this->pkgHandle
+        );
+        $assetList->registerGroup(
+            'editor/ckeditor/concrete5uploadimage',
+            array(
+                array('javascript', 'editor/ckeditor/concrete5uploadimage'),
+            )
+        );
+
         $pluginManager = Core::make('editor')->getPluginManager();
 
         $plugin = new Plugin();
@@ -129,6 +144,12 @@ class Controller extends Package
         $plugin->setKey('concrete5filemanager');
         $plugin->setName(t('Concrete5 File Browser'));
         $plugin->requireAsset('editor/ckeditor/concrete5filemanager');
+        $pluginManager->register($plugin);
+
+        $plugin = new Plugin();
+        $plugin->setKey('concrete5uploadimage');
+        $plugin->setName(t('Concrete5 Upload Image'));
+        $plugin->requireAsset('editor/ckeditor/concrete5uploadimage');
         $pluginManager->register($plugin);
     }
 

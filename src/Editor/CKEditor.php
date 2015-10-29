@@ -9,7 +9,7 @@ use Concrete\Core\Localization\Localization;
 use Concrete\Core\Utility\Service\Identifier;
 use Core;
 use Permissions;
-use Punic\Language;
+use URL;
 
 class CKEditor implements EditorInterface
 {
@@ -47,6 +47,7 @@ class CKEditor implements EditorInterface
             array(
                 'plugins' => implode(',', $plugins),
                 'filebrowserBrowseUrl' => 'a',
+                'uploadUrl' => (string) URL::to('/ccm/system/file/upload'),
                 'language' => $this->getLanguageOption(),
                 'customConfig' => '',
                 'allowedContent' => true
