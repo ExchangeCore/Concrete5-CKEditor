@@ -62,11 +62,11 @@ class Controller extends Package
 
         $providers = new ProviderList(\Core::getFacadeRoot());
         $providers->registerProvider('Concrete\Package\CommunityCkeditor\Src\Editor\EditorServiceProvider');
-        $this->registerInlinePlugin();
+        $this->registerCustomPlugins();
         $this->registerInternalPlugins();
     }
 
-    protected function registerInlinePlugin()
+    protected function registerCustomPlugins()
     {
         $assetList = \AssetList::getInstance();
         $assetList->register(
@@ -130,6 +130,21 @@ class Controller extends Package
             )
         );
 
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/concrete5link',
+            'assets/concrete5link/register.js',
+            array(),
+            $this->pkgHandle
+        );
+        $assetList->registerGroup(
+            'editor/ckeditor/concrete5link',
+            array(
+                array('javascript', 'editor/ckeditor/concrete5link'),
+            )
+        );
+
         $pluginManager = Core::make('editor')->getPluginManager();
 
         $plugin = new Plugin();
@@ -148,6 +163,12 @@ class Controller extends Package
         $plugin->setKey('concrete5uploadimage');
         $plugin->setName(t('Concrete5 Upload Image'));
         $plugin->requireAsset('editor/ckeditor/concrete5uploadimage');
+        $pluginManager->register($plugin);
+
+        $plugin = new Plugin();
+        $plugin->setKey('concrete5link');
+        $plugin->setName(t('Concrete5 Link'));
+        $plugin->requireAsset('editor/ckeditor/concrete5link');
         $pluginManager->register($plugin);
     }
 
@@ -179,13 +200,12 @@ class Controller extends Package
             array('key' => 'forms', 'name' => t('Form Elements')),
             array('key' => 'horizontalrule', 'name' => t('Horizontal Rule')),
             array('key' => 'htmlwriter', 'name' => t('HTML Output Writer')),
-            array('key' => 'image', 'name' => t('Image')), //todo: integrate/replace with concrete5 file manager
+            array('key' => 'image', 'name' => t('Image')),
             array('key' => 'image2', 'name' => t('Enhanced Image')),
             array('key' => 'indentblock', 'name' => t('Indent Block')),
             array('key' => 'indentlist', 'name' => t('Indent List')),
             array('key' => 'justify', 'name' => t('Justify')),
             array('key' => 'language', 'name' => t('Language')),
-            array('key' => 'link', 'name' => t('Link')), //todo: integrate/replace with sitemap support
             array('key' => 'list', 'name' => t('List')),
             array('key' => 'liststyle', 'name' => t('List Style')),
             array('key' => 'magicline', 'name' => t('Magic Line')),
@@ -236,6 +256,7 @@ class Controller extends Package
                 'colorbutton',
                 'colordialog',
                 'contextmenu',
+                'concrete5link',
                 'dialogadvtab',
                 'divarea',
                 'elementspath',
