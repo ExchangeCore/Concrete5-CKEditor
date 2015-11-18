@@ -325,7 +325,6 @@ EOL;
             array('key' => 'bidi', 'name' => t('BiDi (Text Direction)')),
             array('key' => 'blockquote', 'name' => t('Blockquote')),
             array('key' => 'clipboard', 'name' => t('Clipboard')),
-            array('key' => 'codesnippet', 'name' => t('Code Snippet')),
             array('key' => 'colorbutton', 'name' => t('Color Button')),
             array('key' => 'colordialog', 'name' => t('Color Dialog')),
             array('key' => 'contextmenu', 'name' => t('Context Menu')),
