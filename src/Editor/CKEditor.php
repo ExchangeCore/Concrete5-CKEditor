@@ -84,7 +84,7 @@ EOL;
 
     public function outputPageInlineEditor($key, $content = null)
     {
-        $identifier = id(new Identifier())->getString(32);
+        $identifier = 'cke-' . id(new Identifier())->getString(32);
         $this->getPluginManager()->select('concrete5inline');
         $html = sprintf(
             '<textarea id="%s_content" style="display:none;" name="%s"></textarea>
@@ -116,7 +116,7 @@ EOL;
 
     public function outputStandardEditor($key, $content = null)
     {
-        $identifier = id(new Identifier())->getString(32);
+        $identifier = 'cke-' . id(new Identifier())->getString(32);
         $html = sprintf(
             '<textarea id="%s" style="display:none;" name="%s">%s</textarea>',
             $identifier,
