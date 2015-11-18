@@ -119,7 +119,7 @@ EOL;
 
     public function outputStandardEditor($key, $content = null)
     {
-        if($this->getPluginManager()->isSelected('sourcearea')) {
+        if ($this->getPluginManager()->isSelected('sourcearea')) {
             $this->getPluginManager()->deselect('sourcedialog');
         }
         $identifier = 'cke-' . id(new Identifier())->getString(32);
