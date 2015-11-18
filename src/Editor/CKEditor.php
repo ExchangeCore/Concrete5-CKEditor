@@ -119,6 +119,9 @@ EOL;
 
     public function outputStandardEditor($key, $content = null)
     {
+        if($this->getPluginManager()->isSelected('sourcearea')) {
+            $this->getPluginManager()->deselect('sourcedialog');
+        }
         $identifier = 'cke-' . id(new Identifier())->getString(32);
         $html = sprintf(
             '<textarea id="%s" style="display:none;" name="%s">%s</textarea>',
