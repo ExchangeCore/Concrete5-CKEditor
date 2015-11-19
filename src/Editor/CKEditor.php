@@ -290,6 +290,21 @@ EOL;
             )
         );
 
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/concrete5styles',
+            'assets/concrete5styles/register.js',
+            array(),
+            'community_ckeditor'
+        );
+        $assetList->registerGroup(
+            'editor/ckeditor/concrete5styles',
+            array(
+                array('javascript', 'editor/ckeditor/concrete5styles'),
+            )
+        );
+
         $plugin = new Plugin();
         $plugin->setKey('concrete5inline');
         $plugin->setName(t('Concrete5 Inline'));
@@ -312,6 +327,12 @@ EOL;
         $plugin->setKey('concrete5link');
         $plugin->setName(t('Concrete5 Link'));
         $plugin->requireAsset('editor/ckeditor/concrete5link');
+        $this->getPluginManager()->register($plugin);
+
+        $plugin = new Plugin();
+        $plugin->setKey('concrete5styles');
+        $plugin->setName(t('Concrete5 Styles'));
+        $plugin->requireAsset('editor/ckeditor/concrete5styles');
         $this->getPluginManager()->register($plugin);
     }
 
