@@ -33,7 +33,9 @@
                     {
                         var style = {};
                         style.name = this.title;
-                        if (typeof this.forceBlock !== 'undefined' && this.forceBlock == 1) {
+                        if (typeof this.element === 'string') {
+                            style.element = this.element;
+                        } else if (typeof this.forceBlock !== 'undefined' && this.forceBlock == 1) {
                             style.element = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
                         } else {
                             style.element = 'span';
