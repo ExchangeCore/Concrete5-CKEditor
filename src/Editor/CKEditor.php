@@ -21,7 +21,7 @@ class CKEditor implements EditorInterface
     protected $allowFileManager;
     protected $allowSitemap;
     protected $pluginManager;
-
+    protected $styles;
 
     public function __construct()
     {
@@ -35,10 +35,14 @@ class CKEditor implements EditorInterface
         $this->pluginManager = new PluginManager();
         $this->registerEditorPlugins();
         $this->registerInternalPlugins();
+        $config = \Package::getByHandle('community_ckeditor')->getConfig();
         $this->pluginManager->selectMultiple(
-            \Package::getByHandle('community_ckeditor')->getConfig()->get('plugins', array())
+            $config->get('plugins', array())
         );
-
+        $this->styles = $config->get(
+            'editor.styles',
+            array()
+        );
     }
 
     protected function getEditorScript($identifier, $options = array())
@@ -60,6 +64,7 @@ class CKEditor implements EditorInterface
             $options,
             array(
                 'plugins' => implode(',', $plugins),
+                'stylesSet' => 'concrete5styles',
                 'filebrowserBrowseUrl' => 'a',
                 'uploadUrl' => (string)URL::to('/ccm/system/file/upload'),
                 'language' => $this->getLanguageOption(),
@@ -72,6 +77,7 @@ class CKEditor implements EditorInterface
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
+            CKEDITOR.stylesSet.add( 'concrete5styles', {$this->getStyles()});
             var ckeditor = $('#{$identifier}').ckeditor({$options}).editor;
             ckeditor.on('blur',function(){
                 return false;
@@ -436,5 +442,13 @@ EOL;
             $useLanguage = strtolower(Localization::activeLanguage());
         }
         return $useLanguage;
+    }
+
+    /**
+     * @return string A JSON Encoded string of styles
+     */
+    public function getStyles()
+    {
+        return $this->styles;
     }
 }

@@ -1,17 +1,17 @@
 <?php
 namespace Concrete\Package\CommunityCkeditor;
 
-use Concrete\Core\Editor\Plugin;
 use Concrete\Core\Foundation\Service\ProviderList;
 use Concrete\Core\Package\Package;
 use Core;
+use Route;
 
 class Controller extends Package
 {
 
     protected $pkgHandle = 'community_ckeditor';
     protected $appVersionRequired = '5.7.5';
-    protected $pkgVersion = '0.1.1';
+    protected $pkgVersion = '0.1.2';
 
     public function getPackageName()
     {
@@ -25,12 +25,15 @@ class Controller extends Package
 
     public function install()
     {
-        parent::install();
+        $pkg = parent::install();
         $this->setupDefaultPlugins();
+        $this->setupDefaultStyles();
+        \SinglePage::add('/dashboard/system/basics/editor/ckeditor_styles', $pkg);
     }
 
     public function on_start()
     {
+        $this->registerRoutes();
         $this->overrideEditor();
     }
 
@@ -51,6 +54,7 @@ class Controller extends Package
                 'colordialog',
                 'contextmenu',
                 'concrete5link',
+                'concrete5styles',
                 'dialogadvtab',
                 'divarea',
                 'elementspath',
@@ -84,6 +88,30 @@ class Controller extends Package
                 'undo',
                 'wysiwygarea'
             )
+        );
+    }
+
+    public function setupDefaultStyles()
+    {
+        $prettyPrint = defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : 0;
+
+        $this->getConfig()->save(
+            'editor.styles',
+            json_encode(
+                array(
+                    array('name' => 'Typewriter', 'element' => 'tt'),
+                ),
+                $prettyPrint
+            )
+        );
+    }
+
+    protected function registerRoutes()
+    {
+        Route::register(
+            '/package/community_ckeditor/api/styles',
+            '\Concrete\Package\CommunityCkeditor\Controller\Api\CkeditorStyles::getStylesList',
+            'CommunityCkeditorStylesList'
         );
     }
 }
