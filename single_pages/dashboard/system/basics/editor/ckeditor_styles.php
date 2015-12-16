@@ -4,12 +4,17 @@
  * @var string $tokenOutput
  */
 ?>
-<form method="post" class="ccm-dashboard-content-form" action="<?=$view->action('submit')?>">
+<style>
+.textarea textarea {
+    width: 100%;
+}
+</style>
+<form method="post" action="<?=$view->action('submit')?>">
     <?=$this->controller->token->output('submit')?>
     <fieldset>
         <p class="lead"><?=t('CKEditor Styles')?></p>
         <div class="textarea">
-            <textarea rows="15" cols="400" name="styles"><?= $styles ?></textarea>
+            <textarea rows="15" name="styles"><?= $styles ?></textarea>
         </div>
     </fieldset>
     <div class="ccm-dashboard-form-actions-wrapper">
