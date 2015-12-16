@@ -3,6 +3,7 @@
 namespace Concrete\Package\CommunityCkeditor\Controller\SinglePage\Dashboard\System\Basics\Editor;
 
 use Concrete\Core\Page\Controller\DashboardPageController;
+use Concrete\Package\CommunityCkeditor\Src\Utility\BackwardsCompatibilityUtility;
 
 class CkeditorStyles extends DashboardPageController
 {
@@ -47,7 +48,7 @@ class CkeditorStyles extends DashboardPageController
         $startingCount = count($error->getList());
         $styles = json_decode($styles, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            $error->add(t('You must save your styles in a valid JSON format: %s', json_last_error_msg()));
+            $error->add(t('You must save your styles in a valid JSON format: %s', BackwardsCompatibilityUtility::json_last_error_msg()));
             return false;
         }
 
@@ -65,7 +66,7 @@ class CkeditorStyles extends DashboardPageController
                     }
                 }
             } else {
-                $error->add(t('You must specify an "name" attribute for %s', json_encode($style)));
+                $error->add(t('You must specify a "name" attribute for %s', json_encode($style)));
             }
         }
 
