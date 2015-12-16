@@ -13,7 +13,7 @@ class CkeditorStyles extends DashboardPageController
             $this->set('styles', $currentValue);
         } else {
             $editor = \Core::make("editor");
-            $this->set('styles', $editor->getStyles());
+            $this->set('styles', $editor->getStylesJson());
         }
     }
 
