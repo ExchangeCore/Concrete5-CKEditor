@@ -21,7 +21,7 @@ class CKEditor implements EditorInterface
     protected $allowFileManager;
     protected $allowSitemap;
     protected $pluginManager;
-
+    protected $stylesJson;
 
     public function __construct()
     {
@@ -35,10 +35,14 @@ class CKEditor implements EditorInterface
         $this->pluginManager = new PluginManager();
         $this->registerEditorPlugins();
         $this->registerInternalPlugins();
+        $config = \Package::getByHandle('community_ckeditor')->getConfig();
         $this->pluginManager->selectMultiple(
-            \Package::getByHandle('community_ckeditor')->getConfig()->get('plugins', array())
+            $config->get('plugins', array())
         );
-
+        $this->stylesJson = $config->get(
+            'editor.styles',
+            array()
+        );
     }
 
     protected function getEditorScript($identifier, $options = array())
@@ -60,6 +64,7 @@ class CKEditor implements EditorInterface
             $options,
             array(
                 'plugins' => implode(',', $plugins),
+                'stylesSet' => 'concrete5styles',
                 'filebrowserBrowseUrl' => 'a',
                 'uploadUrl' => (string)URL::to('/ccm/system/file/upload'),
                 'language' => $this->getLanguageOption(),
@@ -72,6 +77,9 @@ class CKEditor implements EditorInterface
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
+            if (CKEDITOR.stylesSet.get('concrete5styles') === null) {
+                CKEDITOR.stylesSet.add( 'concrete5styles', {$this->getStylesJson()});
+            }
             var ckeditor = $('#{$identifier}').ckeditor({$options}).editor;
             ckeditor.on('blur',function(){
                 return false;
@@ -290,6 +298,21 @@ EOL;
             )
         );
 
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/concrete5styles',
+            'assets/concrete5styles/register.js',
+            array(),
+            'community_ckeditor'
+        );
+        $assetList->registerGroup(
+            'editor/ckeditor/concrete5styles',
+            array(
+                array('javascript', 'editor/ckeditor/concrete5styles'),
+            )
+        );
+
         $plugin = new Plugin();
         $plugin->setKey('concrete5inline');
         $plugin->setName(t('Concrete5 Inline'));
@@ -312,6 +335,12 @@ EOL;
         $plugin->setKey('concrete5link');
         $plugin->setName(t('Concrete5 Link'));
         $plugin->requireAsset('editor/ckeditor/concrete5link');
+        $this->getPluginManager()->register($plugin);
+
+        $plugin = new Plugin();
+        $plugin->setKey('concrete5styles');
+        $plugin->setName(t('Concrete5 Styles'));
+        $plugin->requireAsset('editor/ckeditor/concrete5styles');
         $this->getPluginManager()->register($plugin);
     }
 
@@ -415,5 +444,13 @@ EOL;
             $useLanguage = strtolower(Localization::activeLanguage());
         }
         return $useLanguage;
+    }
+
+    /**
+     * @return string A JSON Encoded string of styles
+     */
+    public function getStylesJson()
+    {
+        return $this->stylesJson;
     }
 }
