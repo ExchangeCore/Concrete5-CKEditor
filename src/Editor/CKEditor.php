@@ -21,7 +21,7 @@ class CKEditor implements EditorInterface
     protected $allowFileManager;
     protected $allowSitemap;
     protected $pluginManager;
-    protected $styles;
+    protected $stylesJson;
 
     public function __construct()
     {
@@ -39,7 +39,7 @@ class CKEditor implements EditorInterface
         $this->pluginManager->selectMultiple(
             $config->get('plugins', array())
         );
-        $this->styles = $config->get(
+        $this->stylesJson = $config->get(
             'editor.styles',
             array()
         );
@@ -77,7 +77,9 @@ class CKEditor implements EditorInterface
         <script type="text/javascript">
         var CCM_EDITOR_SECURITY_TOKEN = "{$this->token}";
         $(function() {
-            CKEDITOR.stylesSet.add( 'concrete5styles', {$this->getStyles()});
+            if (CKEDITOR.stylesSet.get('concrete5styles') === null) {
+                CKEDITOR.stylesSet.add( 'concrete5styles', {$this->getStylesJson()});
+            }
             var ckeditor = $('#{$identifier}').ckeditor({$options}).editor;
             ckeditor.on('blur',function(){
                 return false;
@@ -447,8 +449,8 @@ EOL;
     /**
      * @return string A JSON Encoded string of styles
      */
-    public function getStyles()
+    public function getStylesJson()
     {
-        return $this->styles;
+        return $this->stylesJson;
     }
 }

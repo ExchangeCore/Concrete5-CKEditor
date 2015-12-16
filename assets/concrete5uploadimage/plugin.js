@@ -1,8 +1,8 @@
-(function() {
+(function () {
     CKEDITOR.plugins.add('concrete5uploadimage', {
         requires: 'uploadimage',
         init: function (editor) {
-            editor.on('fileUploadRequest', function(evt) {
+            editor.on('fileUploadRequest', function (evt) {
                 var fileLoader = evt.data.fileLoader;
                 var xhr = fileLoader.xhr;
                 var formData = new FormData();
@@ -15,7 +15,7 @@
                 evt.stop();
             });
 
-            editor.on('fileUploadResponse', function(evt) {
+            editor.on('fileUploadResponse', function (evt) {
                 evt.stop();
 
                 var data = evt.data,

@@ -65,7 +65,6 @@ class Controller extends Package
                 'format',
                 'htmlwriter',
                 'image',
-                'image2',
                 'indentblock',
                 'indentlist',
                 'justify',

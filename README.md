@@ -4,6 +4,7 @@
 
 This concrete5 v7 package fully replaces the default Redactor editor with [CKEditor](http://ckeditor.com/).
 
-## Installation
+## Documentation
 
-Save the files to a directory named "community_ckeditor" in your concrete5 packages directory.
+Please visit our documentation site at [https://docs.exchangecore.com/community_ckeditor/](https://docs.exchangecore.com/community_ckeditor/)
+and select the documentation for the version you are using.
