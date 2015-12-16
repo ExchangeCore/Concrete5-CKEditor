@@ -23,6 +23,8 @@ class BackwardsCompatibilityUtility
             $error = json_last_error();
             return array_key_exists($error, $errors) ? $errors[$error] : t("Unknown error: %s", $error);
         }
+        // @codingStandardsIgnoreStart
         return json_last_error_msg();
+        // @codingStandardsIgnoreEnd
     }
 }
