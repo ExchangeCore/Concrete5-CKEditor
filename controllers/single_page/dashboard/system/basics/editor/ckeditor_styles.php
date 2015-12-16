@@ -53,15 +53,19 @@ class CkeditorStyles extends DashboardPageController
 
         foreach ($styles as $style) {
             if (isset($style['name'])) {
-                if (!isset($style['element'])) {
-                    $error->add(t('You must specify an "element" attribute for %s', json_encode($style)));
-                }
-            } elseif (isset($style['type']) && strtolower($style['type']) == 'widget') {
-                if (!isset($style['widget'])) {
-                    $error->add(t('You must specify a "widget" attribute for %s', json_encode($style)));
+                if (!isset($style['element']) && !isset($style['type']) && !isset($style['widget'])) {
+                    $error->add(t('The following is not a valid style: %s', json_encode($style)));
+                } elseif (isset($style['type']) && strtolower($style['type']) == 'widget') {
+                    if (!isset($style['widget'])) {
+                        $error->add(t('You must specify a "widget" attribute for %s', json_encode($style)));
+                    }
+                } elseif (isset($style['widget'])) {
+                    if (!isset($style['type'])) {
+                        $error->add(t('You must specify a "type" attribute for %s', json_encode($style)));
+                    }
                 }
             } else {
-                $error->add(t('The following is not a valid style: %s', json_encode($style)));
+                $error->add(t('You must specify an "name" attribute for %s', json_encode($style)));
             }
         }
 
