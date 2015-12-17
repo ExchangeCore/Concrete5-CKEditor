@@ -21,16 +21,17 @@ CKEDITOR.plugins.add('concrete5inline', {
             }
         });
 
-        editor.ui.addButton && editor.ui.addButton('Save', {
-            label: editor.lang.save.toolbar,
-            command: 'c5save',
-            toolbar: 'document,0'
-        });
-
-        editor.ui.addButton && editor.ui.addButton('Cancel', {
-            label: editor.lang.common.cancel,
-            command: 'c5cancel',
-            toolbar: 'document,1'
-        });
+        if (editor.ui.addButton) {
+            editor.ui.addButton('Save', {
+                label: editor.lang.save.toolbar,
+                command: 'c5save',
+                toolbar: 'document,0'
+            });
+            editor.ui.addButton('Cancel', {
+                label: editor.lang.common.cancel,
+                command: 'c5cancel',
+                toolbar: 'document,1'
+            });
+        }
     }
 });

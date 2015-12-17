@@ -21,7 +21,7 @@ class BackwardsCompatibilityUtility
                 JSON_ERROR_UTF8 => t('Malformed UTF-8 characters, possibly incorrectly encoded')
             );
             $error = json_last_error();
-            return array_key_exists($error, $errors) ? $errors[$error] : t("Unknown error: %s", $error);
+            return array_key_exists($error, $errors) ? $errors[$error] : t('Unknown error: %s', $error);
         }
         // @codingStandardsIgnoreStart
         return json_last_error_msg();

@@ -13,7 +13,7 @@ class CkeditorStyles extends DashboardPageController
         if ($currentValue !== null) {
             $this->set('styles', $currentValue);
         } else {
-            $editor = \Core::make("editor");
+            $editor = \Core::make('editor');
             $this->set('styles', $editor->getStylesJson());
         }
     }
@@ -48,7 +48,12 @@ class CkeditorStyles extends DashboardPageController
         $startingCount = count($error->getList());
         $styles = json_decode($styles, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            $error->add(t('You must save your styles in a valid JSON format: %s', BackwardsCompatibilityUtility::json_last_error_msg()));
+            $error->add(
+                t(
+                    'You must save your styles in a valid JSON format: %s',
+                    BackwardsCompatibilityUtility::json_last_error_msg()
+                )
+            );
             return false;
         }
 
@@ -72,5 +77,4 @@ class CkeditorStyles extends DashboardPageController
 
         return $startingCount === count($error->getList());
     }
-
 }
