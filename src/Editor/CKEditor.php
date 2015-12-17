@@ -306,10 +306,18 @@ EOL;
             array(),
             'community_ckeditor'
         );
+        $assetList->register(
+            'css',
+            'editor/ckeditor/concrete5styles',
+            'assets/concrete5styles/styles.css',
+            array(),
+            'community_ckeditor'
+        );
         $assetList->registerGroup(
             'editor/ckeditor/concrete5styles',
             array(
                 array('javascript', 'editor/ckeditor/concrete5styles'),
+                array('css', 'editor/ckeditor/concrete5styles'),
             )
         );
 
