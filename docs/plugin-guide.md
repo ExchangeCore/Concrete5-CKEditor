@@ -2,6 +2,11 @@
 
 In this guide we will outline how to create a plugin which is available to be used with the community CKEditor package.
 
+## IMPORTANT NOTICE
+
+As of this time we cannot guarantee that this guide will work for all package developers. For more information please
+see the [corresponding issue on github](https://github.com/ExchangeCore/Concrete5-CKEditor/issues/29)
+
 ## Creating a CKEditor Plugin
 
 Since CKEditor already has a guide on how to create a plugin we'll just point you at 
