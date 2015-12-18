@@ -1,9 +1,14 @@
+stages:
+  - test
+  - release
+
 cache:
   paths:
-    - build/node_modules
-    - build/vendor
+  - build/node_modules
+  - build/vendor
 
 lint:
+  stage: test
   script:
   - cd build
   - composer install
@@ -20,6 +25,7 @@ lint:
   - tags
 
 docs:
+  stage: release
   script:
   - mkdocs build --clean
   - lftp nox.exchangecore.com -e "rm -r /$CI_BUILD_REF_NAME; mirror -R build/docs /$CI_BUILD_REF_NAME; exit" -u $DOCS_FTP_USERNAME,$DOCS_FTP_PASSWORD
@@ -31,3 +37,19 @@ docs:
   only:
   - "develop"
   - tags
+
+release:
+  stage: release
+  script:
+  - cd build
+  - composer install
+  - npm install
+  - grunt release
+  tags:
+  - node
+  - grunt
+  only:
+  - tags
+  artifacts:
+    paths:
+    - build/community_ckeditor.zip
