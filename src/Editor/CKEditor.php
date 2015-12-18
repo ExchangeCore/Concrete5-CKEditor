@@ -71,7 +71,11 @@ class CKEditor implements EditorInterface
                 'customConfig' => '',
                 'allowedContent' => true,
                 'image2_captionedClass' => 'content-editor-image-captioned',
-                'image2_alignClasses' => array('content-editor-image-left', 'content-editor-image-center', 'content-editor-image-right')
+                'image2_alignClasses' => array(
+                    'content-editor-image-left',
+                    'content-editor-image-center',
+                    'content-editor-image-right'
+                )
             )
         );
         $options = json_encode($options);
