@@ -69,7 +69,9 @@ class CKEditor implements EditorInterface
                 'uploadUrl' => (string)URL::to('/ccm/system/file/upload'),
                 'language' => $this->getLanguageOption(),
                 'customConfig' => '',
-                'allowedContent' => true
+                'allowedContent' => true,
+                'image2_captionedClass' => 'content-editor-image-captioned',
+                'image2_alignClasses' => array('content-editor-image-left', 'content-editor-image-center', 'content-editor-image-right')
             )
         );
         $options = json_encode($options);
