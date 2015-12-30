@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Package\CommunityCkeditor;
 
+use Concrete\Core\Asset\AssetPointer;
 use Concrete\Core\Foundation\Service\ProviderList;
 use Concrete\Core\Package\Package;
 use Core;
@@ -35,6 +36,7 @@ class Controller extends Package
     {
         $this->registerRoutes();
         $this->overrideEditor();
+        $this->registerAssets();
     }
 
     protected function overrideEditor()
@@ -112,5 +114,20 @@ class Controller extends Package
             '\Concrete\Package\CommunityCkeditor\Controller\Api\CkeditorStyles::getStylesList',
             'CommunityCkeditorStylesList'
         );
+    }
+
+    protected function registerAssets()
+    {
+
+        $assetList = \AssetList::getInstance();
+        $assetList->register(
+            'javascript',
+            'editor/ckeditor/jqueryui',
+            'assets/ckeditordialog.js',
+            array('minify' => false, 'combine' => false),
+            'community_ckeditor'
+        );
+        $assetList->getAssetGroup('core/app')->add(new AssetPointer('javascript', 'editor/ckeditor/jqueryui'));
+
     }
 }
