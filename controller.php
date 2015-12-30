@@ -50,6 +50,7 @@ class Controller extends Package
         $this->getConfig()->save(
             'plugins',
             array(
+                'autogrow',
                 'a11yhelp',
                 'basicstyles',
                 'colorbutton',

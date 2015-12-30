@@ -101,6 +101,9 @@ EOL;
 
     public function outputPageInlineEditor($key, $content = null)
     {
+        if ($this->getPluginManager()->isSelected('autogrow')) {
+            $this->getPluginManager()->deselect('autogrow');
+        }
         $identifier = 'cke-' . id(new Identifier())->getString(32);
         $this->getPluginManager()->select('concrete5inline');
         $html = sprintf(
@@ -133,8 +136,17 @@ EOL;
 
     public function outputStandardEditor($key, $content = null)
     {
+        $options = array(
+            'startupFocus' => true,
+            'disableAutoInline' => true,
+        );
         if ($this->getPluginManager()->isSelected('sourcearea')) {
             $this->getPluginManager()->deselect('sourcedialog');
+        }
+
+        if ($this->getPluginManager()->isSelected('autogrow')) {
+            $options['autoGrow_bottomSpace'] = 10;
+            $options['autoGrow_minHeight'] = 200;
         }
         $identifier = 'cke-' . id(new Identifier())->getString(32);
         $html = sprintf(
@@ -145,10 +157,7 @@ EOL;
         );
         $html .= $this->getEditorScript(
             $identifier,
-            array(
-                'startupFocus' => true,
-                'disableAutoInline' => true
-            )
+            $options
         );
         return $html;
     }
@@ -363,6 +372,7 @@ EOL;
     {
         $pluginList = array(
             array('key' => 'about', 'name' => t('About')),
+            array('key' => 'autogrow', 'name' => t('Auto Grow')),
             array('key' => 'a11yhelp', 'name' => t('Accessibility Help')),
             array('key' => 'basicstyles', 'name' => t('Basic Styles')),
             array('key' => 'bidi', 'name' => t('BiDi (Text Direction)')),
