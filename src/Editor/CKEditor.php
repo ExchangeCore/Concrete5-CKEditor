@@ -221,6 +221,13 @@ EOL;
             'community_ckeditor'
         );
         $assetList->register(
+            'css',
+            'editor/ckeditor',
+            'assets/ckeditor.css',
+            array(),
+            'community_ckeditor'
+        );
+        $assetList->register(
             'javascript',
             'editor/ckeditor/jquery_adapter',
             'vendor/ckeditor/adapters/jquery.js',
@@ -232,6 +239,7 @@ EOL;
             'editor/ckeditor',
             array(
                 array('javascript', 'editor/ckeditor'),
+                array('css', 'editor/ckeditor'),
                 array('javascript', 'editor/ckeditor/jquery_adapter')
             )
         );
