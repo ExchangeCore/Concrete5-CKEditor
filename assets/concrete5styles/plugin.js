@@ -3,7 +3,7 @@
         requires: ['stylescombo', 'menubutton'],
         init: function (editor) {
             var plugin = this;
-
+            plugin.ajaxData = {}
             /**
              * Function taken largely from the htmlbuttons plugin
              */
@@ -107,7 +107,7 @@
                 },
 
                 success: function (response) {
-
+                    plugin.ajaxData = response;
                     var buttons = {
                         name: 'snippets',
                         icon: 'snippet.png',
@@ -130,23 +130,27 @@
                     });
                     createMenuButton(buttons);
 
-                    var additionalStyles = [];
-                    $.each(response.classes, function () {
-                        var style = {};
-                        style.name = this.title;
-                        if (typeof this.forceBlock !== 'undefined' && this.forceBlock == 1) {
-                            style.element = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
-                        } else {
-                            style.element = 'span';
-                        }
-                        if (typeof this.spanClass !== 'undefined') {
-                            style.attributes = {'class': this.spanClass};
-                        }
-                        additionalStyles.push(style);
-                    });
-                    editor.fire('stylesSet', {styles: additionalStyles});
                 }
             });
+        },
+
+        afterInit: function (editor) {
+            var plugin = this;
+            var additionalStyles = [];
+            $.each(plugin.ajaxData.classes, function () {
+                var style = {};
+                style.name = this.title;
+                if (typeof this.forceBlock !== 'undefined' && this.forceBlock == 1) {
+                    style.element = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+                } else {
+                    style.element = 'span';
+                }
+                if (typeof this.spanClass !== 'undefined') {
+                    style.attributes = {'class': this.spanClass};
+                }
+                additionalStyles.push(style);
+            });
+            editor.fire('stylesSet', {styles: additionalStyles});
         }
     });
 })();
