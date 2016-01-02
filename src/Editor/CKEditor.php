@@ -143,11 +143,6 @@ EOL;
         if ($this->getPluginManager()->isSelected('sourcearea')) {
             $this->getPluginManager()->deselect('sourcedialog');
         }
-
-        if ($this->getPluginManager()->isSelected('autogrow')) {
-            $options['autoGrow_bottomSpace'] = 10;
-            $options['autoGrow_minHeight'] = 200;
-        }
         $identifier = 'cke-' . id(new Identifier())->getString(32);
         $html = sprintf(
             '<textarea id="%s" style="display:none;" name="%s">%s</textarea>',
