@@ -3,7 +3,7 @@
         requires: ['stylescombo', 'menubutton'],
         init: function (editor) {
             var plugin = this;
-            plugin.ajaxData = {}
+            plugin.ajaxData = {};
             /**
              * Function taken largely from the htmlbuttons plugin
              */
