@@ -388,7 +388,6 @@ EOL;
             array('key' => 'div', 'name' => t('Div Container Manager')),
             array('key' => 'divarea', 'name' => t('Div Editing Area')),
             array('key' => 'elementspath', 'name' => t('Elements Path')),
-            array('key' => 'embed', 'name' => t('Media Embed')),
             array('key' => 'enterkey', 'name' => t('Enter Key')),
             array('key' => 'entities', 'name' => t('Escape HTML Entities')),
             array('key' => 'find', 'name' => t('Find / Replace')),
