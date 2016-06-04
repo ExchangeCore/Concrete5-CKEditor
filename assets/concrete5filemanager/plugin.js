@@ -10,7 +10,8 @@
                 function makeButtonClickHandler() {
                     return function () {
                         editor._.filebrowserSe = this;
-                        var dialog = this.getDialog();ConcreteFileManager.launchDialog(function (data) {
+                        var dialog = this.getDialog();
+                        ConcreteFileManager.launchDialog(function (data) {
                             jQuery.fn.dialog.showLoader();
                             ConcreteFileManager.getFileDetails(data.fID, function (r) {
                                 jQuery.fn.dialog.hideLoader();
@@ -52,6 +53,8 @@
                                 }
                             });
                         });
+                        var topDialog = $.fn.dialog.getTop();
+                        topDialog.closest('.ui-dialog').css("zIndex", 10010);
                     };
                 }
 
