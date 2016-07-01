@@ -53,8 +53,10 @@
                                 }
                             });
                         });
-                        var topDialog = $.fn.dialog.getTop();
-                        topDialog.closest('.ui-dialog').css("zIndex", 10010);
+                        setTimeout(function(){
+                            var topDialog = $.fn.dialog.getTop();
+                            topDialog.closest('.ui-dialog').zIndex(10012);
+                        }, 250);
                     };
                 }
 

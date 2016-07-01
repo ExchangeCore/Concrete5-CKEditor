@@ -273,18 +273,10 @@ EOL;
             array(),
             'community_ckeditor'
         );
-        $assetList->register(
-            'css',
-            'editor/ckeditor/concrete5filemanager',
-            'assets/concrete5filemanager/styles.css',
-            array(),
-            'community_ckeditor'
-        );
         $assetList->registerGroup(
             'editor/ckeditor/concrete5filemanager',
             array(
                 array('javascript', 'editor/ckeditor/concrete5filemanager'),
-                array('css', 'editor/ckeditor/concrete5filemanager'),
             )
         );
 

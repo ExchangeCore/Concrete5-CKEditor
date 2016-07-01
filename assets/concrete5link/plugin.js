@@ -24,11 +24,12 @@
                                         height: '70%',
                                         modal: false,
                                         title: ccmi18n_sitemap.choosePage,
-                                        href: CCM_TOOLS_PATH + '/sitemap_search_selector'
+                                        href: CCM_TOOLS_PATH + '/sitemap_search_selector',
+                                        open: function () {
+                                            $(this).closest('.ui-dialog').zIndex(10012);
+                                        }
                                     });
 
-                                    var topDialog = $.fn.dialog.getTop();
-                                    topDialog.closest('.ui-dialog').css("zIndex", 10010);
                                     ConcreteEvent.unsubscribe('SitemapSelectPage');
                                     ConcreteEvent.subscribe('SitemapSelectPage', function (e, data) {
                                         jQuery.fn.dialog.closeTop();
