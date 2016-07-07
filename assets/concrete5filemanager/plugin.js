@@ -53,10 +53,14 @@
                                 }
                             });
                         });
-                        setTimeout(function(){
+                         var checkVisibleDialog = setInterval(function(){
                             var topDialog = $.fn.dialog.getTop();
-                            topDialog.closest('.ui-dialog').zIndex(10012);
-                        }, 250);
+                            //console.log(topDialog.closest('.ui-dialog').length);
+                            if(topDialog.closest('.ui-dialog').length > 0){
+                                topDialog.closest('.ui-dialog').zIndex(10012);
+                                clearInterval(checkVisibleDialog);
+                            }
+                        }, 100);
                     };
                 }
 
